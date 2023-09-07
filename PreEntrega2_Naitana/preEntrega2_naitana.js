@@ -7,6 +7,13 @@ class Producto{
         this.precio = precio
     }
 
+    get_info(){
+        console.log("nombre: ",this.nombre);
+        console.log("color: ",this.color);
+        console.log("stock: ",this.stock);
+        console.log("precio: ",this.precio);
+    }
+
     get_stock(){
         if(this.stock <= 0)
         return false
@@ -24,8 +31,9 @@ class Producto{
     else{
         console.log("No tenemos esa cantidad de stock")
     }
-
 }
+
+
 }
 
 let listaProductos =[];
@@ -39,16 +47,24 @@ listaProductos.push(new Producto ("TotteBag", "Blanco y Negro", 15, 3500));
 console.log(listaProductos.length)
 console.log(listaProductos)
 
-if(listaProductos != undefined){
 
-}
-else
-{console.log("No tenemos ese producto", listaProductos)
-}
-
-
-
-console.log(alert("Bienvenido al Mundo Warholiana, elije tu producto"))
+alert("Bienvenido al Mundo Warholiana, elije tu producto")
 let clienteCompra = prompt("Escribi el producto que queres")
-let productoFind = clienteCompra.find(listaProductos)
+let cantidadDelProducto = prompt("Decinos cuantos/as queres comprar")
 
+let productoBuscado = listaProductos.find(function ( producto ) {
+return producto.nombre === clienteCompra;   
+});
+
+
+if (productoBuscado) {
+    if ( productoBuscado.actualizacion_stock(cantidadDelProducto)){
+        console.log(
+            `Usted busca ${cantidadDelProducto} ${productoBuscado.nombre}(s) y deberá pagar un total de ${cantidadDelProducto * productoBuscado.precio}`
+    );
+    } else {
+    console.log("nose a podido realizar la compra");
+    } 
+} else{
+    console.log("No encontramos tu producto")
+}
