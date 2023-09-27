@@ -2,7 +2,7 @@
 
 const contenidoTienda = document.getElementById("contenedorDeProducto")
 const verCarrito = document.getElementById("verCarrito")
-const headerCarrito =document
+const carritoTabla = document.getElementById("carrito   ")
 
 
 let carrito = []
@@ -16,7 +16,7 @@ productos.forEach((producto) => {
         <p>${producto.descripcion}</p>
         <p>${producto.precio}</p>
     `;
-    contenedorDeProducto.append(contenido)
+    contenidoTienda.appendChild(contenido)
 
     let comprar = document.createElement("button")
     comprar.className = "comprar"
@@ -37,19 +37,44 @@ productos.forEach((producto) => {
 });
 
 verCarrito.addEventListener("click", () =>{
-    let headerCarrito = document.createElement("tbody");
-    headerCarrito.className = "ver-carrito";
-    headerCarrito.innerHTML = `
-    <h1 class="ver-carrito">crrito.</h1>
-    `;
-    verCarrito.append(headerCarrito)
+  monstrarCarrito();
 });
+
+function monstrarCarrito() {
+let carritoCuerpo = carritoTabla.querySelector("tbody");
+
+carritoTabla.innerHTML ="";
+
+carrito.forEach((producto) =>  {
+    let row = document.createComment("tr");
+    row.innerHTML = `
+        <td>${producto.id}</td>
+        <td>${producto.nombre}</td>
+        <td>$${producto.precio}</td>
+        <td>${producto.cantidad}</td>
+    `;
+
+    carritoCuerpo.appendChild(row)
+});
+
+carritoTabla.style.display = "table";
+
+}
 
 function agregarAlCarrito(producto){
 let memoria = localStorage.getItem("productosComprados")
 if(!memoria){
-    let nuevoProducto = producto;
-    nuevoProducto.cantidad = 1;
-    localStorage.setItem("productosComprados",[nuevoProducto])
+    carrito = [];
+} else {
+    carrito = JSON.parse(memoria);
 }
+let productoCarrito = carrito.find((item) => item.id === producto.id )
+
+if (productoCarrito) {
+    productoCarrito.cantidad += 1;
+} else {
+    productoCarrito.cantidad = 1;
+    carrito.push(producto);
+}
+localStorage.setItem("productoComprados", JSON.stringify(carrito));
 };
