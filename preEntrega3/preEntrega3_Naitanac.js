@@ -1,80 +1,63 @@
+const contenidoTienda = document.getElementById("contenedorDeProducto");
+const verCarrito = document.getElementById("verCarrito");
+const carritoTabla = document.getElementById("carritoTabla"); // Corregido el ID
 
-
-const contenidoTienda = document.getElementById("contenedorDeProducto")
-const verCarrito = document.getElementById("verCarrito")
-const carritoTabla = document.getElementById("carrito   ")
-
-
-let carrito = []
+let carrito = [];
 
 productos.forEach((producto) => {
     let contenido = document.createElement("div");
-    contenido.className = "card  mb-4 "
+    contenido.className = "card mb-4";
     contenido.innerHTML = `
-        <img src="">
+        <img src="${producto.img}">
         <h3>${producto.nombre}</h3>
         <p>${producto.descripcion}</p>
         <p>${producto.precio}</p>
     `;
-    contenidoTienda.appendChild(contenido)
 
-    let comprar = document.createElement("button")
-    comprar.className = "comprar"
+    let comprar = document.createElement("button");
+    comprar.className = "comprar";
     comprar.innerText = "comprar";
 
-    contenido.append(comprar)
+    contenido.appendChild(comprar);
 
-    comprar.addEventListener("click", () =>{
-        carrito.push({
-            id : producto.id,
-            img : producto.img,
-            nombre: producto.nombre,
-            precio: producto.precio,
-        });
-        console.log(carrito)
+    comprar.addEventListener("click", () => {
+        agregarAlCarrito(producto);
     });
 
+    contenidoTienda.appendChild(contenido);
 });
 
-verCarrito.addEventListener("click", () =>{
-  monstrarCarrito();
+verCarrito.addEventListener("click", () => {
+    mostrarCarrito();
 });
 
-function monstrarCarrito() {
-let carritoCuerpo = carritoTabla.querySelector("tbody");
+function agregarAlCarrito(producto) {
+    const productoEnCarrito = carrito.find((item) => item.id === producto.id);
 
-carritoTabla.innerHTML ="";
-
-carrito.forEach((producto) =>  {
-    let row = document.createComment("tr");
-    row.innerHTML = `
-        <td>${producto.id}</td>
-        <td>${producto.nombre}</td>
-        <td>$${producto.precio}</td>
-        <td>${producto.cantidad}</td>
-    `;
-
-    carritoCuerpo.appendChild(row)
-});
-
-carritoTabla.style.display = "table";
-
+    if (productoEnCarrito) {
+        productoEnCarrito.cantidad += 1;
+    } else {
+        producto.cantidad = 1;
+        carrito.push(producto);
+    }
 }
 
-function agregarAlCarrito(producto){
-let memoria = localStorage.getItem("productosComprados")
-if(!memoria){
-    carrito = [];
-} else {
-    carrito = JSON.parse(memoria);
-}
-let productoCarrito = carrito.find((item) => item.id === producto.id )
+function mostrarCarrito() {
+    let carritoTabla = document.getElementById("carritoTabla");
+    let carritoCuerpo = carritoTabla.querySelector("tbody");
 
-if (productoCarrito) {
-    productoCarrito.cantidad += 1;
-} else {
-    productoCarrito.cantidad = 1;
-    carrito.push(producto);
+
+    carritoCuerpo.innerHTML = "";
+
+    carrito.forEach((producto) => {
+        let row = document.createElement("tr");
+        row.innerHTML = `
+            <td>${producto.id}</td>
+            <td>${producto.nombre}</td>
+            <td>$${producto.precio}</td>
+            <td>${producto.cantidad}</td>
+        `;
+
+        carritoCuerpo.appendChild(row);
+    });
 }
-localStorage.setItem("productoComprados", JSON.stringify(carrito));
-};
