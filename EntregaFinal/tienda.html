@@ -3,12 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="stilos.css">
+    <link rel="stylesheet" href="estilos.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <title>Document</title>
 </head>
-<body>
+<body id="fondo">
 <header>   
     
     <h1 class="text-center m-5" id="titulo">WARHOLIANA</h1>
@@ -27,9 +27,8 @@
         <li class="nav-item">
         <a class="nav-link" href="#">Tienda</a>
     </li>
-<button id="verCarrito" class="btb"><i class="fa-solid fa-cart-shopping"></i></button>
-
-</ul>
+<a  class="btb" id="verCarrito" ><i  class="fa-solid fa-cart-shopping"></i></a>
+</ul>   
     </div>
 </header>
 
@@ -38,18 +37,19 @@
 
     <div id="contenedorDeProducto" class="cont card-body mb-5 p-5 text-center" > </div>
 
-    <div id="contenedorCarrito"></div>
- 
+    <div id="modal-container"></div>
+
 
 
 </main>
-    
-<footer>
+
+<footer class="text-center">
     <p class="pb-5">Copyrai 2023</p>
 </footer>
 
-    <script src="productos.js"> </script>
-    <script src="tienda.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="./js/productos.js"></script>
+<script src="./js/carrito.js"></script>
+<script src="./js/tienda.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
 </body>
 </html>

@@ -1,1 +1,0 @@
-localStorage.setItem("usuario_1","robocop")
